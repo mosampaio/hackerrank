@@ -6,7 +6,7 @@ process.stdin.on("data", function (input) {
 });
 
 function isMove(player, input, number) {
-	return input.split(player).length - 1 == number;
+    return input.split(player).length - 1 == number;
 }
 
 function defineAlgorithm(input) {
@@ -100,6 +100,12 @@ function OAlgorithm(input) {
 			else if (/O\n..O\n.O.\n_../.test(input))	process.stdout.write('2 0');
 			else if (/O\n.._\n.O.\nO../.test(input))	process.stdout.write('0 2');
 			else if (/O\n_..\n.O.\n..O/.test(input))	process.stdout.write('0 0');
+            
+            //try to mark any Corner
+    		else if (/O\n_..\n...\n.../.test(input))	process.stdout.write('0 0');
+			else if (/O\n.._\n...\n.../.test(input))	process.stdout.write('0 2');
+			else if (/O\n...\n...\n_../.test(input))	process.stdout.write('2 0');
+			else if (/O\n...\n...\n_../.test(input))    process.stdout.write('2 2');
 			
 			else new RandomAlgorithm(input).move();
 		}
