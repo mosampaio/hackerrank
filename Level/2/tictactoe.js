@@ -6,7 +6,7 @@ process.stdin.on("data", function (input) {
 });
 
 function isMove(player, input, number) {
-	return input.split(player).length - 1 == number;
+    return input.split(player).length - 1 == number;
 }
 
 function defineAlgorithm(input) {
@@ -18,12 +18,12 @@ function OAlgorithm(input) {
 	
 	this.move = function() {
 		if (isMove('O', input, 1)) {
-				 if (/O\n_..\n.X.\n.../.test(input))    process.stdout.write('0 0');
-			else 										process.stdout.write('1 1');
+			if (/O\n_..\n.X.\n.../.test(input))    		process.stdout.write('0 0');
+			else										process.stdout.write('1 1');
 		} else {
 			//try to win
 			//001122
-				 if (/O\n_..\n.O.\n..O/.test(input))    process.stdout.write('0 0');
+			if (/O\n_..\n.O.\n..O/.test(input))    		process.stdout.write('0 0');
 			else if (/O\nO..\n._.\n..O/.test(input))    process.stdout.write('1 1');
 			else if (/O\nO..\n.O.\n.._/.test(input))    process.stdout.write('2 2');
 			//021120
@@ -90,16 +90,22 @@ function OAlgorithm(input) {
 			else if (/O\n..X\n..X\n.._/.test(input))    process.stdout.write('2 2');
 			
 			//try to defend the 'X corner' algorithm
-			else if (/O\nX__\n_O_\n__X/.test(input))    process.stdout.write('0 1');
-			else if (/O\n__X\n_O_\nX__/.test(input))    process.stdout.write('0 1');
-			else if (/O\nX__\n_O_\n__X/.test(input))    process.stdout.write('0 1');
-			else if (/O\nX__\n_O_\n__X/.test(input))    process.stdout.write('0 1');
+			else if (/O\nX__\n_O_\n__X/.test(input)) 	process.stdout.write('0 1');
+			else if (/O\n__X\n_O_\nX__/.test(input)) 	process.stdout.write('0 1');
+			else if (/O\nX__\n_O_\n__X/.test(input)) 	process.stdout.write('0 1');
+			else if (/O\nX__\n_O_\n__X/.test(input)) 	process.stdout.write('0 1');
 			
 			//try to mark the opposite corner
-			else if (/O\nO..\n.O.\n.._/.test(input))    process.stdout.write('2 2');
+			else if (/O\nO..\n.O.\n.._/.test(input))	process.stdout.write('2 2');
 			else if (/O\n..O\n.O.\n_../.test(input))	process.stdout.write('2 0');
 			else if (/O\n.._\n.O.\nO../.test(input))	process.stdout.write('0 2');
 			else if (/O\n_..\n.O.\n..O/.test(input))	process.stdout.write('0 0');
+            
+            //try to mark any Corner
+    		else if (/O\n_..\n...\n.../.test(input))	process.stdout.write('0 0');
+			else if (/O\n.._\n...\n.../.test(input))	process.stdout.write('0 2');
+			else if (/O\n...\n...\n_../.test(input))	process.stdout.write('2 0');
+			else if (/O\n...\n...\n_../.test(input))    process.stdout.write('2 2');
 			
 			else new RandomAlgorithm(input).move();
 		}
