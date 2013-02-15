@@ -3,14 +3,8 @@ process.stdin.setEncoding("ascii");
 process.stdin.on("data", function (input) {
   move(input);
 });
-
-var input = '7\n------p\n-------\n-------\n---m---\n-------\n-------\n-------';
-//var input = '5\n-----\n-----\n--m--\n-----\np----';
-//var input = '3\n---\n-m-\np--';
-move(input);
-
 function move(input) {
-  var d = getDimension(input);
+	var d = getDimension(input);
 
     var box = toArray(input, d);
 	var now = coordinates(box, 'm');
@@ -50,6 +44,7 @@ function toArray(input, dimension) {
 	var h = dimension.h;
     var w = dimension.w;
 
+	split.shift();
 	split.shift();
   	var box = new Array();
   	for (i=0;i<w;i++) {
