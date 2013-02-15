@@ -1,0 +1,78 @@
+process.stdin.resume();
+process.stdin.setEncoding("ascii");
+process.stdin.on("data", function (input) {
+  move(input);
+});
+
+function move(input) {
+  var d = getDimension(input);
+
+    var box = toArray(input, d);
+	var now = coordinates(box, 'm');
+	var princess = coordinates(box, 'p');
+
+	process.stdout.write(output(now, princess));
+}
+
+function output(now, princess){
+	var absoluteValue = Math.abs(now.x - princess.x);
+	var isPositive = now.x - princess.x > 0;
+	var output = '';
+	for (i=absoluteValue;i>0;i--) {
+		if (i != absoluteValue) {
+			output += '\n';
+		}
+		if (isPositive) {
+			output += 'UP';
+		} else {
+			output += 'DOWN';
+		}
+	}
+	
+	absoluteValue = Math.abs(now.y - princess.y);
+	isPositive = now.y - princess.y > 0;
+	
+	for (i=absoluteValue;i>0;i--) {
+		output += '\n';
+		if (isPositive) {
+			output += 'LEFT';
+		} else {
+			output += 'RIGHT';
+		}
+	}
+	return output;
+}
+
+function coordinates(box, m){
+	for (i=0;i<box.length;i++){
+		for (j=0;j<box.length;j++) {
+			if (box[i][j] == m) {
+				return {x:i, y:j};
+			}
+		}
+	}
+	return;
+}
+
+function toArray(input, dimension) {
+	var split = input.split('\n');
+
+	var h = dimension.h;
+    var w = dimension.w;
+
+	split.shift();
+  	var box = new Array();
+  	for (i=0;i<w;i++) {
+    	box[i] = new Array();
+    	for (j=0;j<h;j++) {
+    	  	box[i][j] = split[i].charAt(j);
+    	}
+	}
+    return box;
+}
+
+function getDimension(input) {
+	var h = parseInt(input.substring(0,1));
+    var w = parseInt(input.substring(0,1));
+	return {h:h, w:w};
+}
